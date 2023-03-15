@@ -22,17 +22,17 @@ schedules:
       include:
         - master
 
-  # - cron: "55 16 * * *"
-  #   displayName: QA_7
-  #   branches:
-  #     include:
-  #       - master
+  - cron: "*/5 * * * *"
+    displayName: QA_7
+    branches:
+      include:
+        - master
 
-  # - cron: "59 16 * * *"
-  #   displayName: QA_9
-  #   branches:
-  #     include:
-  #       - master
+  - cron: "*/7 * * * *"
+    displayName: QA_9
+    branches:
+      include:
+        - master
 # variables:
 # #   endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/84?api-version=6.1-preview.7"
 # #   organization: "sunrise7"
@@ -69,10 +69,10 @@ steps:
       
       
       $url = $url_base + $url_endpoint
-      # $Personal_Access_Token = "qvxe4oteuehnazplukd2okvuvvaeginb3v2bq6hnkcmmefdgbfja"
+      $Personal_Access_Token = "qvxe4oteuehnazplukd2okvuvvaeginb3v2bq6hnkcmmefdgbfja"
       $user = "sunrise@q5ct.onmicrosoft.com"
       
-      $token = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, ${env:PAT})))
+      $token = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $Personal_Access_Token)))
       $header = @{authorization = "Basic $token"}
       
       $response = Invoke-RestMethod -uri $url -Method Get -ContentType "application/json" -headers $header
