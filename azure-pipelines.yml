@@ -8,12 +8,12 @@ trigger: none
 pool:
   vmImage: windows-latest
 
-schedules:
-  - cron: "*/2 * * * *"
-    displayName: QA_7
-    branches:
-      include:
-        - master
+# schedules:
+#   - cron: "*/2 * * * *"
+#     displayName: QA_7
+#     branches:
+#       include:
+#         - master
 # variables:
 # #   endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/84?api-version=6.1-preview.7"
 # #   organization: "sunrise7"
@@ -41,11 +41,11 @@ steps:
       #Azure Devops params
       $AzureDevops_org = "sunrise7"
       $AzureDevops_project = "FirstPractise"
-      $buildId : "$(Build.BuildId)"
+      # $buildId : "$(Build.BuildId)"
       
       #API Calls
       $url_base = "https://dev.azure.com/"
-      $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/$buildId?api-version=6.1-preview.7"
+      $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/89?api-version=6.1-preview.7"
       #$url_endpoint = "https://dev.azure.com/GK2021/AzureDevops/_apis/build/builds?api-version=6.1-preview.6"
       
       
