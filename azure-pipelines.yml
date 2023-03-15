@@ -13,7 +13,13 @@ schedules:
     displayName: QA7
     branches:
       include:
-        - master 
+        - master
+variables:
+  endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}?api-version=6.1-preview.7"
+  organization: "sunrise7"
+  project: "FirstPractise"
+  buildId: "$(Build.BuildId)"
+  
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
@@ -27,22 +33,13 @@ steps:
   inputs:
     scriptType: 'inlineScript'
     inlineScript: |
-      # Set the Azure DevOps organization name, project name, and pipeline name
-      $orgName = "sunrise7"
-      $projectName = "FirstPractise"
-      $pipelineName = "build_pipeline"
+      $url = "${{variables.endpointUrl}}"
+            $organization = "${{variables.organization}}"
+            $project = "${{variables.project}}"
+            $buildId = "${{variables.buildId}}"
       
-      # Set the personal access token (PAT) with the necessary permissions to access the Azure DevOps API
-      $pat = "qvxe4oteuehnazplukd2okvuvvaeginb3v2bq6hnkcmmefdgbfja"
+            $response = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f $env:SYSTEM_ACCESSTOKEN)}
       
-      # Get the pipeline ID for the specified pipeline name
-      $url = "https://dev.azure.com/$orgName/$projectName/_apis/pipelines?api-version=6.1-preview.1"
-      $pipelines = Invoke-RestMethod -Uri $url -Headers @{ Authorization = "Bearer $pat" } -Method Get
-      $pipelineId = $pipelines.value | Where-Object { $_.name -eq $pipelineName } | Select-Object -ExpandProperty id
+            $scheduleName = $response.triggerInfo.scheduleName
       
-      # Get the pipeline trigger for the specified pipeline ID
-      $url = "https://dev.azure.com/$orgName/$projectName/_apis/pipelines/$pipelineId/triggers?api-version=6.1-preview.1"
-      $triggers = Invoke-RestMethod -Uri $url -Headers @{ Authorization = "Bearer $pat" } -Method Get
-      $scheduleName = $triggers.value[0].schedules[0].scheduleName
-      
-      Write-Output "Schedule Name: $scheduleName"
+            Write-Host "The trigger schedule name is: $scheduleName"
