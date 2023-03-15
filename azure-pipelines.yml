@@ -45,7 +45,7 @@ steps:
       
       #API Calls
       $url_base = "https://dev.azure.com/"
-      $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/buildId?api-version=6.1-preview.7"
+      $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/$buildId?api-version=6.1-preview.7"
       #$url_endpoint = "https://dev.azure.com/GK2021/AzureDevops/_apis/build/builds?api-version=6.1-preview.6"
       
       
