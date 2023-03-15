@@ -56,7 +56,7 @@ steps:
 - task: InvokeRESTAPI@0
   inputs:
     serviceConnection: 'DevOps'
-    method: 'POST'
+    method: 'GET'
     waitForCompletion: 'false'
 
 # - task: PowerShell@1
