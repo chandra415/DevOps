@@ -14,11 +14,11 @@ pool:
 #     branches:
 #       include:
 #         - master
-variables:
-  endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}?api-version=6.1-preview.7"
-  organization: "sunrise7"
-  project: "FirstPractise"
-  buildId: $(Build.BuildId)
+# variables:
+#   endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}?api-version=6.1-preview.7"
+#   organization: "sunrise7"
+#   project: "FirstPractise"
+#   buildId: $(Build.BuildId)
   
 steps:
 - script: echo Hello, world!
@@ -33,10 +33,10 @@ steps:
   inputs:
     scriptType: 'inlineScript'
     inlineScript: |
-            $url = "${{variables.endpointUrl}}"
-            $organization = "${{variables.organization}}"
-            $project = "${{variables.project}}"
-            $buildId = "${{variables.buildId}}"
+            $url = "https://dev.azure.com/sunrise7/FirstPractise/_apis/build/builds/79?api-version=6.1-preview.7"
+            $organization = "sunrise7"
+            $project = "FirstPractise"
+            $buildId = "79"
       
             $response = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers @{Authorization=("Bearer {0}" -f $env:SYSTEM_ACCESSTOKEN)}
       
