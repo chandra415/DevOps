@@ -6,8 +6,14 @@
 trigger: none
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
+schedules:
+  - cron: "*/5 * * * *"
+    displayName: QA7
+    branches:
+      include:
+        - master 
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
@@ -16,3 +22,27 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: PowerShell@1
+  inputs:
+    scriptType: 'inlineScript'
+    inlineScript: |
+      # Set the Azure DevOps organization name, project name, and pipeline name
+      $orgName = "sunrise7"
+      $projectName = "YourProjectNFirstPractise/ame"
+      $pipelineName = "build_pipeline"
+      
+      # Set the personal access token (PAT) with the necessary permissions to access the Azure DevOps API
+      $pat = "qvxe4oteuehnazplukd2okvuvvaeginb3v2bq6hnkcmmefdgbfja"
+      
+      # Get the pipeline ID for the specified pipeline name
+      $url = "https://dev.azure.com/$orgName/$projectName/_apis/pipelines?api-version=6.1-preview.1"
+      $pipelines = Invoke-RestMethod -Uri $url -Headers @{ Authorization = "Bearer $pat" } -Method Get
+      $pipelineId = $pipelines.value | Where-Object { $_.name -eq $pipelineName } | Select-Object -ExpandProperty id
+      
+      # Get the pipeline trigger for the specified pipeline ID
+      $url = "https://dev.azure.com/$orgName/$projectName/_apis/pipelines/$pipelineId/triggers?api-version=6.1-preview.1"
+      $triggers = Invoke-RestMethod -Uri $url -Headers @{ Authorization = "Bearer $pat" } -Method Get
+      $scheduleName = $triggers.value[0].schedules[0].scheduleName
+      
+      Write-Output "Schedule Name: $scheduleName"
