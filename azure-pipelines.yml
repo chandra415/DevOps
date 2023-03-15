@@ -53,46 +53,6 @@ steps:
       
       $response = Invoke-RestMethod -uri $url -Method Get -ContentType "application/json" -headers $header
       
-      #Class
-      class BuildInfo 
-      {
-          [string]$BuildName
-          [string]$BuildID
-          [string]$Status
-          [string]$Result
-      }
-      
-      #Declare Arraylist to easily add/remove
-      $Builds = [System.Collections.ArrayList]@()
-      
-      #Populate the Arraylist with instances based on the class we created earlier
-      foreach($item in $response.value)
-      {
-          $build = [BuildInfo]::new()
-          $build.BuildName = $item.definition.name
-          $build.BuildID = $item.definition.id
-          $build.Status = $item.status
-          $build.Result = $item.result
-      
-          $Builds.Add($build) | Out-null #if you comment out 'Out-Null' you will see that this outputs the Count of items. Do this to remove the gibberish
-      }
-      
-      #Filter the list for Unique values only
-      $Builds = $Builds | Select-Object BuildName,BuildID,Status,Result -Unique
-      
-      #Display the information we care about
-      for ($i=0;$i -lt $Builds.Count; $i++)
-      {
-          write-host "
-                      Build Name :  $($Builds[$i].BuildName) `n 
-                      Build ID : $($Builds[$i].BuildID) `n 
-                      Build Status : $($Builds[$i].status) `n
-                      Build Result : $($Builds[$i].result) `n"
-      }
-      
-      
-      #Declare the output file name
-      $output_file = "SampleJson.Json"
-      
-      #Write the entire json object retrieved into a output file
-      $response | ConvertTo-Json -Depth 4 | Out-File $output_file
+      $scheduleName = $response.triggerInfo.scheduleName
+
+      Write-Host "The trigger schedule name is: $scheduleName"
