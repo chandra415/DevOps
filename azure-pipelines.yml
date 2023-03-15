@@ -56,8 +56,7 @@ steps:
   inputs:
     connectionType: 'connectedServiceName'
     serviceConnection: 'DevOps'
-    method: 'GET'
-    headers: 
+    method: 'POST'
     waitForCompletion: 'false'
 
 - task: InvokeRESTAPI@1
