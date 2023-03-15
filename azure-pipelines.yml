@@ -40,8 +40,9 @@ steps:
       
       #API Calls
       $url_base = "https://dev.azure.com/"
-      $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/$buildID?api-version=6.1-preview.6"
+      $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/$buildID?api-version=6.1-preview.7"
       #$url_endpoint = "https://dev.azure.com/GK2021/AzureDevops/_apis/build/builds?api-version=6.1-preview.6"
+      
       
       $url = $url_base + $url_endpoint
       $Personal_Access_Token = "qvxe4oteuehnazplukd2okvuvvaeginb3v2bq6hnkcmmefdgbfja"
