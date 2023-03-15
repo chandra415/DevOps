@@ -9,7 +9,7 @@ pool:
   vmImage: windows-latest
 
 schedules:
-  - cron: "*/5 * * * *"
+  - cron: "*/2 * * * *"
     displayName: QA7
     branches:
       include:
