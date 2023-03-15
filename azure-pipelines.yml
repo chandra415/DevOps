@@ -10,10 +10,29 @@ pool:
 
 # schedules:
 #   - cron: "*/2 * * * *"
-#     displayName: QA_7
+#     displayName: QA_5
 #     branches:
 #       include:
 #         - master
+
+schedules:
+  - cron: "45 16 * * *"
+    displayName: QA_7
+    branches:
+      include:
+        - master
+        
+  - cron: "55 16 * * *"
+    displayName: QA_7
+    branches:
+      include:
+        - master
+
+  - cron: "59 16 * * *"
+    displayName: QA_9
+    branches:
+      include:
+        - master
 # variables:
 # #   endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/84?api-version=6.1-preview.7"
 # #   organization: "sunrise7"
