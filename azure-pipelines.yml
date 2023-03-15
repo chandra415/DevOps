@@ -10,7 +10,7 @@ pool:
 
 schedules:
   - cron: "*/2 * * * *"
-    displayName: QA9
+    displayName: QA_7
     branches:
       include:
         - master
