@@ -15,7 +15,7 @@ schedules:
       include:
         - master
 variables:
-#   endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}?api-version=6.1-preview.7"
+#   endpointUrl: "https://dev.azure.com/{organization}/{project}/_apis/build/builds/84?api-version=6.1-preview.7"
 #   organization: "sunrise7"
 #   project: "FirstPractise"
   buildId: $(Build.BuildId)
@@ -33,7 +33,7 @@ steps:
   inputs:
     scriptType: 'inlineScript'
     inlineScript: |
-            $url = "https://dev.azure.com/sunrise7/FirstPractise/_apis/build/builds/{buildId}?api-version=6.1-preview.7"
+            $url = "https://dev.azure.com/sunrise7/FirstPractise/_apis/build/builds/84?api-version=6.1-preview.7"
             $organization = "sunrise7"
             $project = "FirstPractise"
             $buildId = "${{variables.buildId}}"
