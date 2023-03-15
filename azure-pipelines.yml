@@ -33,7 +33,7 @@ steps:
   inputs:
     scriptType: 'inlineScript'
     inlineScript: |
-      $url = "${{variables.endpointUrl}}"
+            $url = "${{variables.endpointUrl}}"
             $organization = "${{variables.organization}}"
             $project = "${{variables.project}}"
             $buildId = "${{variables.buildId}}"
