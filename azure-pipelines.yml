@@ -8,12 +8,12 @@ trigger: none
 pool:
   vmImage: windows-latest
 
-# schedules:
-#   - cron: "*/2 * * * *"
-#     displayName: QA7
-#     branches:
-#       include:
-#         - master 
+schedules:
+  - cron: "*/2 * * * *"
+    displayName: QA7
+    branches:
+      include:
+        - master 
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
@@ -29,7 +29,7 @@ steps:
     inlineScript: |
       # Set the Azure DevOps organization name, project name, and pipeline name
       $orgName = "sunrise7"
-      $projectName = "YourProjectNFirstPractise/ame"
+      $projectName = "FirstPractise"
       $pipelineName = "build_pipeline"
       
       # Set the personal access token (PAT) with the necessary permissions to access the Azure DevOps API
