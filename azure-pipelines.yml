@@ -52,12 +52,14 @@ steps:
 #     echo Add other tasks to build, test, and deploy your project.
 #     echo See https://aka.ms/yaml
 #   displayName: 'Run a multi-line script'
-
-- task: InvokeRESTAPI@0
+- task: InvokeRESTAPI@1
   inputs:
+    connectionType: 'connectedServiceName'
     serviceConnection: 'DevOps'
     method: 'GET'
     waitForCompletion: 'false'
+
+- task: InvokeRESTAPI@1
 
 # - task: PowerShell@1
 #   inputs:
