@@ -8,6 +8,23 @@ trigger: none
 pool:
   vmImage: windows-latest
 
+variables:
+- name: one
+  value: initialValue 
+
+- name: two
+  value: secondValue
+
+steps:
+  - script: |
+      echo ${{ variables.one }}
+      echo $(one)
+    displayName: First variable pass
+
+  - script: |
+      echo ${{ variables.two }}
+      echo $(two)
+    displayName: Second variable pass
 # schedules:
 #   - cron: "*/2 * * * *"
 #     displayName: QA_5
@@ -44,7 +61,7 @@ pool:
 #   project: "FirstPractise"
 #   buildId: "$(Build.BuildId)"
 
-steps:
+# steps:
 # - script: echo Hello, world!
 #   displayName: 'Run a one-line script'
 
@@ -61,33 +78,33 @@ steps:
 
 # - task: InvokeRESTAPI@1
 
-- task: PowerShell@1
-  inputs:
-    scriptType: 'inlineScript'
-    inlineScript: |
-      #Azure Devops params
-      $AzureDevops_org = "sunrise7"
-      $AzureDevops_project = "FirstPractise"
-      # $buildId : "$(Build.BuildId)"
+# - task: PowerShell@1
+#   inputs:
+#     scriptType: 'inlineScript'
+#     inlineScript: |
+#       #Azure Devops params
+#       $AzureDevops_org = "sunrise7"
+#       $AzureDevops_project = "FirstPractise"
+#       # $buildId : "$(Build.BuildId)"
       
-      #API Calls
-      $url_base = "https://dev.azure.com/"
-      $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/$(Build.BuildId)?api-version=6.1-preview.7"
-      #$url_endpoint = "https://dev.azure.com/GK2021/AzureDevops/_apis/build/builds?api-version=6.1-preview.6"
+#       #API Calls
+#       $url_base = "https://dev.azure.com/"
+#       $url_endpoint = "$AzureDevops_org/$AzureDevops_project/_apis/build/builds/$(Build.BuildId)?api-version=6.1-preview.7"
+#       #$url_endpoint = "https://dev.azure.com/GK2021/AzureDevops/_apis/build/builds?api-version=6.1-preview.6"
       
       
-      $url = $url_base + $url_endpoint
-      $Personal_Access_Token = "qvxe4oteuehnazplukd2okvuvvaeginb3v2bq6hnkcmmefdgbfja"
-      $user = "sunrise@q5ct.onmicrosoft.com"
+#       $url = $url_base + $url_endpoint
+#       $Personal_Access_Token = "qvxe4oteuehnazplukd2okvuvvaeginb3v2bq6hnkcmmefdgbfja"
+#       $user = "sunrise@q5ct.onmicrosoft.com"
       
-      $token = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $Personal_Access_Token)))
-      $header = @{authorization = "Basic $token"}
+#       $token = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $Personal_Access_Token)))
+#       $header = @{authorization = "Basic $token"}
       
-      $response = Invoke-RestMethod -uri $url -Method Get -ContentType "application/json" -headers $header
+#       $response = Invoke-RestMethod -uri $url -Method Get -ContentType "application/json" -headers $header
       
-      $scheduleName = $response.triggerInfo.scheduleName
+#       $scheduleName = $response.triggerInfo.scheduleName
 
-      Write-Host "The trigger schedule name is: $scheduleName"
+#       Write-Host "The trigger schedule name is: $scheduleName"
 
 
 # - task: PowerShell@1
